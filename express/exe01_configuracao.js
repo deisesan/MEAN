@@ -1,16 +1,16 @@
 const express = require('express')
-const app = express()
+const server = express()
 
-app.get('/', function(req, res) {
+server.get('/', function(req, res) {
   res.send('<h1>Index</h1>')
 })
 
-app.all('/teste', function(req, res) {
+server.all('/teste', function(req, res) {
   res.send('<h1>Teste</h1>')
 })
 
-app.get(/api/, function(req, res) {
+server.get(/api/, function(req, res) {
   res.send('<h1>API</h1>')
 })
 
-app.listen(3000, () => console.log('Executando...'))
+server.listen(3000, () => console.log('Executando...'))
