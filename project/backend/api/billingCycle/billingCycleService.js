@@ -8,28 +8,29 @@ BillingCycle.after('post', sendErrorsOrNext).after('put', sendErrorsOrNext)
 
 function sendErrorsOrNext(req, res, next) {
     const bundle = res.locals.bundle
-
+  
     if(bundle.errors) {
-        var erros = parseErrors(bundle.errors)
-        res.status(500).json({ erros })
+      var errors = parseErrors(bundle.errors)
+      res.status(500).json({errors})
     } else {
-        next()
+      next()
     }
 }
 
-function parseErrors(nodeRestfulErros) {
+function parseErrors(nodeRestfulErrors) {
     const errors = []
-    _.forIn(nodeRestfulErros, error => errors.push(error.message))
-    return errors 
+    _.forIn(nodeRestfulErrors, error => errors.push(error.message))
+    return errors
 }
-
+  
 BillingCycle.route('count', function(req, res, next) {
     BillingCycle.count(function(error, value) {
         if(error) {
-            res.status(500).json({ errors: [error] })
+            res.status(500).json({errors: [error]})
+        } else {
+            res.json({value})
         }
-        res.json({value})
     })
 })
-
-module.exports = BillingCycle
+  
+  module.exports = BillingCycle
